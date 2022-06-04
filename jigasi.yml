@@ -1,0 +1,89 @@
+version: '3'
+
+services:
+    # SIP gateway (audio)
+    jigasi:
+        image: jitsi/jigasi:stable-7287
+        restart: ${RESTART_POLICY}
+        ports:
+            - '${JIGASI_PORT_MIN}-${JIGASI_PORT_MAX}:${JIGASI_PORT_MIN}-${JIGASI_PORT_MAX}/udp'
+        volumes:
+            - ${CONFIG}/jigasi:/config:Z
+            - ${CONFIG}/transcripts:/tmp/transcripts:Z
+        environment:
+            # - GOOGLE_APPLICATION_CREDENTIALS
+
+            - GC_PRIVATE_KEY
+                # -----BEGIN PRIVATE KEY-----
+                # MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCuZg37UhSkiIPL
+                # PwLilkTLsoYXBFi9/eDrCgag/9uNpUbOTRrlyqK6D22BAQroXALkuGpn8gYwhMAQ
+                # CFyRPQ4yC+1/1oSCXTFwqEGLxnqI1K0quxiLnQ3fhgecE9K1JKgUooClfi18yBfp
+                # qWCXb3EAsbQOgHY/PvqivQdP010taGsT0GPR4lzD+1H0leWJ4t+eiFLmfdeSA8v8
+                # W1l2+fgBIAYIOYNBLv79j1UdOcIJqOyqlr8qtRH3pARkIBWV8FVoa9cvtsE1Cf3c
+                # Qo4ezQIWdr9goEemPtssF4j1srTIWFKmKiZZFIDcPPkWm2yQi1heOPrYsXnnk0O/
+                # MnDVD5xrAgMBAAECggEAAIxnA3Q4IJmI58UGDzL1+qADZoohQoOyxxQMF+O5S7vX
+                # Bt1DAuSWvp5yzTX07bmJ85cvra3ORPoxGNVpGR0HvbLAGsFQpfca3MxV3G8rQa5N
+                # ik9chEyu12LQBLa8cf/9NiEATF6JUEjYaAGcDkEPw9B+c12f2yx2OrgwEDLnEM/8
+                # a2Q3Vf4X/kKzMik1HT5Henyvv+NSgcvmenRxxQiIbOVCLCdtxNEamWT4PQ5DXm1p
+                # vRlcaFoAYxIqPBtOu5S/gt0H/C0GrtWTdGqkMyiKPV2aeMrTe1+5FMuKjQHOvLeJ
+                # ScKhq3b5n+lxqI3ZJ6RxrEq1krM+pIqUsdmhUfXZjQKBgQDkM+xNVLgkw4FO4cwB
+                # qMr6YfpjbrC8kEnw+G3aZ15V5WlrZ5Cg61snxBMeWhgozc0mqBzq/JnR0ao3Vcol
+                # HIi143ZdggAMgBp+QiKvrlv0UhAKxkY6ejgaOwksnB8iOiglPOgeMrAoduQn38jl
+                # CzEkFD79uxi/T0B0v56FaZ7K1QKBgQDDpFlvCnsZIUbkEaqeoWGGoRXHAbYCJB+d
+                # teUE/Rjjx+P7H9nLjEQbqs4HSCjlgu4TIUfjMbJ+CjZI7hzAyonqR8tOsU1NKd6e
+                # ijrtOH83Xv2zPfDgVOLJvPvL1Phgl4l6rM37HMWduNsm7Cm2+zsCEB2uWo/7FAJG
+                # U8MoK8HqPwKBgQDSu8AziVCjYoc+uPUTczQ+E8yNleJPv08I3+FSFrLez4OSU4kT
+                # kUQUbNTa6of05lfUotpRhgLl56AwiWCq9LaqgOsFXs98u6+7eIdfhLwV2tJFoOOp
+                # jMPSNUI7l9CIYvw/pwcTG+vg8imvSNDT8onmr2ucE/K+eAklxu40dVzWIQKBgBlL
+                # 9OxwtH4JWXs/9YnRYCTiS0iSJhCczyG7VUOR3lgFjqr38VdqaZwSN9WlNPSIO3Rp
+                # xzvPPz8g3ugLMdiT18VdRyKDtnUVxt1FDl2CAqEMPU2h4rV/BFwFfaFbhkonDfW4
+                # xmGD1OGR93RO8Q3h6j1YDB5xQ1C5w5mIVyGolshNAoGALoduOEm4LVWcjKo6x4rg
+                # a42yXt01piCoZgQoRcaVA/EBYvfdjnqOzFbzdASANpNDC2kDwbXF25LhE4Rg7zDE
+                # 6o5kHMCPxcq85EAh8SjIfreeoJUjONeoL62S4yJFsvImpv36f05E0dhiqm0IHMvI
+                # k9NOffLW+6Aar1kFoOiDs+E=
+                # -----END PRIVATE KEY-----
+                
+                
+            - ENABLE_AUTH
+            - ENABLE_GUESTS
+            - XMPP_AUTH_DOMAIN
+            - XMPP_GUEST_DOMAIN
+            - XMPP_MUC_DOMAIN
+            - XMPP_INTERNAL_MUC_DOMAIN
+            - XMPP_SERVER
+            - XMPP_PORT
+            - XMPP_DOMAIN
+            - PUBLIC_URL
+            - JIGASI_SIP_URI
+            - JIGASI_SIP_PASSWORD
+            - JIGASI_SIP_SERVER
+            - JIGASI_SIP_PORT
+            - JIGASI_SIP_TRANSPORT
+            - JIGASI_SIP_DEFAULT_ROOM
+            - JIGASI_XMPP_USER
+            - JIGASI_XMPP_PASSWORD
+            - JIGASI_BREWERY_MUC
+            - JIGASI_PORT_MIN
+            - JIGASI_PORT_MAX
+            - JIGASI_HEALTH_CHECK_SIP_URI
+            - JIGASI_HEALTH_CHECK_INTERVAL
+            - JIGASI_SIP_KEEP_ALIVE_METHOD
+            - JIGASI_ENABLE_SDES_SRTP
+            - ENABLE_TRANSCRIPTIONS
+            - JIGASI_TRANSCRIBER_ADVERTISE_URL
+            - JIGASI_TRANSCRIBER_RECORD_AUDIO
+            - JIGASI_TRANSCRIBER_SEND_TXT
+            - GC_PROJECT_ID
+            - GC_PRIVATE_KEY_ID
+            
+            - GC_CLIENT_EMAIL
+            - GC_CLIENT_ID
+            - GC_CLIENT_CERT_URL
+            - SENTRY_DSN="${JIGASI_SENTRY_DSN:-0}"
+            - SENTRY_ENVIRONMENT
+            - SENTRY_RELEASE
+            - TZ
+        depends_on:
+            - prosody
+        networks:
+            meet.jitsi:
